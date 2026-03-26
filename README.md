@@ -15,14 +15,6 @@ raw demultiplexed paired-end FASTQ
 -> genus-level table export
 -> LEfSe
 -> Maaslin2
-```
-
-## Important assumptions
-
-1. This workflow starts from **sample-level demultiplexed paired-end FASTQ files**.
-2. Barcode demultiplexing is assumed to have already been completed by the sequencing provider or an upstream workflow.
-3. The workflow follows your Methods description as closely as possible, but the exact barcode assignment/orientation-correction step is not explicitly implemented here because that requires raw multiplexed reads and platform-specific barcode metadata.
-4. Rarefaction to 20,000 reads per sample is applied for diversity analysis outputs. Differential abundance workflows (LEfSe and Maaslin2) use the filtered feature table before rarefaction unless you intentionally replace the input.
 
 ## Repository structure
 
@@ -43,24 +35,6 @@ raw demultiplexed paired-end FASTQ
     ├── 06_maaslin2_genus.R
     └── 07_run_all.sh
 ```
-
-## Minimal files required for GitHub upload
-
-### Core reproducibility files: **9 files**
-1. `README.md`
-2. `.gitignore`
-3. `metadata/manifest.tsv.example`
-4. `metadata/sample_metadata.tsv.example`
-5. `scripts/01_run_fastp.sh`
-6. `scripts/02_run_qiime2_dada2_taxonomy.sh`
-7. `scripts/03_export_taxa_tables.sh`
-8. `scripts/05_lefse_genus.R`
-9. `scripts/06_maaslin2_genus.R`
-
-### Optional convenience files
-10. `scripts/04_core_diversity.sh`
-11. `scripts/07_run_all.sh`
-12. `UPLOAD_CHECKLIST.md`
 
 ## Input requirements
 
@@ -210,15 +184,3 @@ Edit variables in:
 ```bash
 bash scripts/07_run_all.sh
 ```
-
-## Notes for manuscript consistency
-
-This repository matches a 16S workflow that uses:
-- fastp for read QC
-- QIIME2 DADA2 for denoising and ASV generation
-- SILVA for taxonomy assignment
-- chloroplast and mitochondria removal
-- rarefaction to 20,000 reads/sample for diversity analyses
-- genus-level exported table for LEfSe and Maaslin2
-
-If your manuscript says the reads were merged with FLASH before DADA2, be cautious: the standard QIIME2 DADA2 paired-end workflow denoises paired reads directly and performs overlap-aware merging internally. The scripts here therefore use the standard and reproducible QIIME2 DADA2 paired-end implementation rather than a separate FLASH merge before DADA2.
