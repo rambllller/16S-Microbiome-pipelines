@@ -38,23 +38,6 @@ raw demultiplexed paired-end FASTQ
     └── 04\_run\_all.sh
 ```
 
-## Minimal files required for GitHub upload
-
-### Core reproducibility files: **6 files**
-
-1. `README.md`
-2. `.gitignore`
-3. `metadata/manifest.tsv.example`
-4. `scripts/01\_run\_fastp.sh`
-5. `scripts/02\_run\_qiime2\_dada2\_taxonomy.sh`
-6. `scripts/03\_export\_taxa\_tables.sh`
-
-### Optional convenience files
-
-10. `scripts/04\_core\_diversity.sh`
-11. `scripts/07\_run\_all.sh`
-12. `UPLOAD\_CHECKLIST.md`
-
 ## Input requirements
 
 ### 1\. Raw demultiplexed paired-end FASTQ files
