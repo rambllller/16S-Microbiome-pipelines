@@ -5,7 +5,7 @@ usage() {
   cat <<USAGE
 Usage:
   bash scripts/02_run_qiime2_dada2_taxonomy.sh -m MANIFEST -o OUTDIR -c CLASSIFIER \
-    [--trim-left-f 0] [--trim-left-r 0] [--trunc-len-f 240] [--trunc-len-r 220] [--sampling-depth 20000]
+    [--trim-left-f 0] [--trim-left-r 0] [--trunc-len-f 240] [--trunc-len-r 220]
 
 Required:
   -m  QIIME2 paired-end manifest TSV
@@ -17,7 +17,6 @@ Optional:
   --trim-left-r      Default 0
   --trunc-len-f      Default 240
   --trunc-len-r      Default 220
-  --sampling-depth   Default 20000
 USAGE
 }
 
@@ -25,7 +24,6 @@ TRIM_LEFT_F=0
 TRIM_LEFT_R=0
 TRUNC_LEN_F=240
 TRUNC_LEN_R=220
-SAMPLING_DEPTH=20000
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]; do
@@ -38,7 +36,6 @@ while [[ $# -gt 0 ]]; do
     --trim-left-r) TRIM_LEFT_R="$2"; shift; shift ;;
     --trunc-len-f) TRUNC_LEN_F="$2"; shift; shift ;;
     --trunc-len-r) TRUNC_LEN_R="$2"; shift; shift ;;
-    --sampling-depth) SAMPLING_DEPTH="$2"; shift; shift ;;
     -h|--help) usage; exit 0 ;;
     *) POSITIONAL+=("$1"); shift ;;
   esac
@@ -70,7 +67,8 @@ qiime dada2 denoise-paired \
   --p-trunc-len-r "$TRUNC_LEN_R" \
   --o-table "$OUTDIR/table-dada2.qza" \
   --o-representative-sequences "$OUTDIR/rep-seqs-dada2.qza" \
-  --o-denoising-stats "$OUTDIR/denoising-stats.qza"
+  --o-denoising-stats "$OUTDIR/denoising-stats.qza" \
+  --o-base-transition-stats "$OUTDIR/base-transition-stats.qza"
 
 qiime feature-table summarize \
   --i-table "$OUTDIR/table-dada2.qza" \
@@ -112,10 +110,5 @@ qiime feature-table summarize \
 qiime feature-table relative-frequency \
   --i-table "$OUTDIR/table-no-organelle.qza" \
   --o-relative-frequency-table "$OUTDIR/relative-frequency-table.qza"
-
-qiime feature-table rarefy \
-  --i-table "$OUTDIR/table-no-organelle.qza" \
-  --p-sampling-depth "$SAMPLING_DEPTH" \
-  --o-rarefied-table "$OUTDIR/table-no-organelle-rarefied-${SAMPLING_DEPTH}.qza"
 
 echo "[INFO] QIIME2 DADA2 + taxonomy pipeline finished. Outputs in: $OUTDIR"
