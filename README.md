@@ -105,7 +105,6 @@ Main outputs:
 * `taxonomy.qza`
 * `table-no-organelle.qza`
 * `relative-frequency-table.qza`
-* `table-no-organelle-rarefied-20000.qza`
 
 ## Step 3. Export taxa tables
 
@@ -128,7 +127,7 @@ This script exports:
 Edit variables in:
 
 ```bash
-bash scripts/07\_run\_all.sh
+bash scripts/04\_run\_all.sh
 ```
 
 ## Notes for manuscript consistency
