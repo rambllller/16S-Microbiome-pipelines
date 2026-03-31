@@ -44,7 +44,7 @@ raw demultiplexed paired-end FASTQ
 
 File naming examples:
 
-* `Sample01\_R1.fastq.gz` and `Sample01\_R2.fastq.gz`
+* `Sample01\_R1.raw.fastq.gz` and `Sample01\_R2.raw.fastq.gz`
 * `SRR000001\_R1.fastq.gz` and `SRR000001\_R2.fastq.gz`
 
 ### 2\. QIIME2 manifest file
@@ -93,8 +93,7 @@ bash scripts/02\_run\_qiime2\_dada2\_taxonomy.sh \\
   --trim-left-f 0 \\
   --trim-left-r 0 \\
   --trunc-len-f 240 \\
-  --trunc-len-r 220 \\
-  --sampling-depth 20000
+  --trunc-len-r 220
 ```
 
 Main outputs:
@@ -124,18 +123,6 @@ This script exports:
 * genus-level relative abundance table
 * family/phylum/... level tables (L2-L7)
 
-## Step 4. Optional diversity analyses
-
-```bash
-bash scripts/04\_core\_diversity.sh \\
-  -i /path/to/qiime2\_results \\
-  -m /path/to/sample\_metadata.tsv \\
-  -o /path/to/diversity\_results \\
-  --sampling-depth 20000
-```
-
-This script runs `qiime diversity core-metrics-phylogenetic` using the rarefied table.
-
 ## One-command convenience runner
 
 Edit variables in:
@@ -152,6 +139,5 @@ This repository matches a 16S workflow that uses:
 * QIIME2 DADA2 for denoising and ASV generation
 * SILVA for taxonomy assignment
 * chloroplast and mitochondria removal
-* rarefaction to 20,000 reads/sample
 * genus-level and other rank-level relative abundance tables
 
