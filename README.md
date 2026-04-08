@@ -1,3 +1,9 @@
+## Note
+
+This repository contains the code, workflow, and documentation for the analyses presented in the paper:
+
+**Bellwether hypothesis: dominant bacteria steer gut Microbial Nitrogen Metabolism via Additive Effects of Non-differential Species**
+
 # 16S rRNA amplicon workflow for QIIME2-based taxonomic profiling
 
 This repository provides a publication-ready 16S rRNA amplicon analysis workflow that mirrors the structure of the shotgun metagenomics repository as closely as possible.
